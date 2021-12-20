@@ -1,9 +1,10 @@
 import tkinter as tk
+from tkinter.constants import Y
 
 window = tk.Tk() # <-- the Tk() class causes a window to open; we've assigned this window to the variable "window"
 window.title("Python Tkinter Calculator")
 
-window.configure(background="black") # <-- makes the background of the window black; you can also use hexadecimals
+window.configure(background="gray") # <-- makes the background of the window black; you can also use hexadecimals
 window.geometry("600x600")
 
 canvas = tk.Canvas(window, background="purple", width=400, height=500) # <-- canvas is our window frame/ the inside part of our window
@@ -20,8 +21,10 @@ S   4.0  4.1  4.2  4.3
 """
 
 # INPUT BOX
-entry = tk.Entry(window) .grid(row=0, column=0, columnspan=3)
-
+entry = tk.Entry(window) # <-- dont try to do .grid or .place on the same line that you declared the tk.Entry() on -- it will throw an error
+entry.grid(row=0, column=0, columnspan=3)
+entry.place(width=389, height=50, x=7, y=3)
+#entry.pack(side=tk.LEFT, padx=3)
 
 # CALCULATOR BUTTONS
 
@@ -40,8 +43,10 @@ while num1 <= 4:
     num1 += 1
 
 
+# RESULTS
 
-
+results = "RESULTS: "
+resultsText = tk.Label(window, text=results, width=10, height=2) .grid(row=6, column=0, columnspan=3)
 
 """
 CALCULATOR BUTTONS TESTING
