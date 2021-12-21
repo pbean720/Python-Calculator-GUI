@@ -2,73 +2,9 @@ import tkinter as tk
 import math
 from tkinter.constants import END
 
-
 ################################################
 ############## THE FUNCTIONALITY ###############
 ################################################
-
-# GIVING THE BUTTONS EVENT LISTENERS
-
-numstr1=''
-operstr=''
-numstr2=''
-numsArr=["7", "8", "9", "0", "4", "5", "6", "1", "2", "3"]
-operArr=["sqr()", "√", "+", "-", "x", "/", ".", "exp"]
-
-btnsDict={"sqr()": "sqr", "√": "sqrRt", "+": "add", "-": "sub", "x": "mult", "/": "div", "exp": "exp"}
-
-"""
-DELETE LATER
-
-def num1():
-    global numstr1
-    numstr1 = numstr1 + entry.get()
-
-def operBtns():
-    global operstr
-    operstr = entry.get()
-
-def num2():
-    global numstr2
-    numstr2 = numstr2 + entry.get()
-"""
-
-def clear():
-    global numstr1
-    global numstr2
-    #global operstr
-
-    numstr1=''
-    numstr2=''
-    #operstr=''
-    entry.delete(0, END)
-
-def btnClick(btntext):
-    global numstr1
-    global numstr2
-    global operstr
-    print (btntext)
-    print (btntext)
-    if btntext in numsArr:
-        if operstr == "":
-            numstr1 += btntext
-        else:
-            numstr2 += btntext
-    elif btntext in operArr and numstr1 != "":
-        if operstr == "":
-            operstr = btntext
-        else:
-            if "." in numstr1 or "." in numstr2:
-                num1 = float(numstr1)
-                num2 = float(numstr2)
-            else:
-                num1 = int(numstr1)
-                num2 = int(numstr2)
-            entry.insert(0, dict.get(operstr(num1, num2)))
-    elif btntext in operArr and numstr1 == "":
-        entry.insert(0, "INVALID INPUT")
-    
-    clear()
 
 # CALCULATE
 
@@ -103,39 +39,66 @@ def exp(a,b):
     print(c)
     return c
 
-# BUTTON FUNCTIONS
+# GIVING THE BUTTONS EVENT LISTENERS
 
-"""
-CALCULATOR BUTTONS TESTING
+numstr1=''
+operstr=''
+numstr2=''
+numsArr=["7", "8", "9", "0", "4", "5", "6", "1", "2", "3"]
+operArr=["sqr()", "√", "+", "-", "x", "/", ".", "exp", "C", "="]
 
-BtnsArr = ["clrBtn", "sqrBtn", "sqrRtBtn", "plusBtn", "SvnBtn", "EigBtn", "NineBtn", "minusBtn", "FourBtn", "FiveBtn", "SixBtn", "mulBtn", "oneBtn", "TwoBtn", "ThreeBtn", "divBtn", "decBtn", "zeroBtn", "expBtn", "equalBtn"]
-BtnsTextArr = ["C", "sqr()", "√", "+", "7", "8", "9", "-", "4", "5", "6", "x", "1", "2", "3", "/", ".", "0", "exp", "="]
+btnsDict={"sqr()": sqr, "√": sqrRt, "+": add, "-": sub, "x": mult, "/": div, "exp": exp}
 
-r = 0
-num1 = 0
-num2 = 0
-while num1 <= 4:
-    for x in range(4):
-        c = x
-        print(BtnsArr[num2] + " " + BtnsTextArr[num2] + " " + "row="+ str(r) + " " + "column=" + str(c))
-        num2 += 1
-    r+=1
-    num1 += 1
-"""
+def clear():
+    global numstr1
+    global numstr2
+    #global operstr
 
+    numstr1=''
+    numstr2=''
+    #operstr=''
+    entry.delete(0, END)
 
+def btnClick(btntext):
+    global numstr1
+    global numstr2
+    global operstr
 
+    print ("button text = " + btntext)
+    print ("operator = " + operstr)
+    print ("numstr1 = " + numstr1)
+    print ("numstr2 = " + numstr2)
+    if btntext in numsArr:
+        if operstr == "":
+            numstr1 += btntext
+        else:
+            numstr2 += btntext
+    elif btntext in operArr and numstr1 != "":
+        if operstr == "":
+            operstr = btntext
+        elif operstr == "C":
+            clear()
+        else:
+            if "." in numstr1 or "." in numstr2:
+                num1 = float(numstr1)
+                num2 = float(numstr2)
+                print("the number had a decimal in it")
+            else:
+                num1 = int(numstr1)
+                num2 = int(numstr2)
+                print("the number was an integer")
+            entry.insert(0, btnsDict[operstr](num1, num2))
 
-"""
-Placing an Image in the GUI:
+            # if operstr == "=":
+                #display results in entry or results
+                # numstr1 = str(results)
+                # clear operstr
+                # clear numstr2
+    elif btntext in operArr and numstr1 == "":
+        print("INVALID INPUT /n Please click a number first")
+        entry.insert(0, "INVALID INPUT")
+    
 
-photo = PhotoImage(file="photo.gif") # <-- creates a variable called photo that has the value of your local image file
-Label (window, image=photo, bg="green") .grid(row=0, column= 2, sticky=W) # <-- a label for the image file that is in charge of telling 
-                                                                                    what window the image will be in, 
-                                                                                    what the backgorund color of the  image will be, 
-                                                                                    the row and column det the image will be in
-                                                                                    whether the image will stay in he N, W, E, or S of the window when it is shrunken and enlarged
-"""
 
 #####################################
 ############## THE UI ###############
@@ -184,6 +147,7 @@ while num1 <= 4:
     for x in range(4):
         c = x
         BtnsArr[num2] = tk.Button(window, text=BtnsTextArr[num2], width=11, height=3, command=btnClick(BtnsTextArr[num2])) .grid(row=r, column=c)
+        print("error: button is clicking while being created")
         num2 += 1
     r+=1
     num1 += 1
