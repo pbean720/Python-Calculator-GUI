@@ -141,16 +141,16 @@ BtnsTextArr = ["C", "sqr()", "√", "+", "7", "8", "9", "-", "4", "5", "6", "x",
 # change to a dictionary
 
 r = 1
-num1 = 0
-num2 = 0
-while num1 <= 4:
+indx1 = 0
+indx2 = 0
+while indx1 <= 4:
     for x in range(4):
         c = x
-        BtnsArr[num2] = tk.Button(window, text=BtnsTextArr[num2], width=11, height=3, command=btnClick(BtnsTextArr[num2])) .grid(row=r, column=c)
-        print("error: button is clicking while being created")
-        num2 += 1
+        print(BtnsArr[indx2] + "button is being created")
+        BtnsArr[indx2] = tk.Button(window, text=BtnsTextArr[indx2], width=11, height=3, command=lambda btntext=BtnsTextArr[indx2]: btnClick(btntext)) .grid(row=r, column=c) # if you're going to use a loop to create buttons, you need to have a lambda command and if your command function is going to have parameters, you will need to define the values of the parameter (btntext = BtnTextArr[indx2]) in each loop otherwise the values will all be the same for each loop
+        indx2 += 1
     r+=1
-    num1 += 1
+    indx1 += 1
 
 
 # RESULTS
