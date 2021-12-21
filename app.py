@@ -52,32 +52,29 @@ btnsDict={"sqr()": sqr, "√": sqrRt, "+": add, "-": sub, "x": mult, "/": div, "
 def clear():
     global numstr1
     global numstr2
-    #global operstr
+    global operstr
 
     numstr1=''
     numstr2=''
-    #operstr=''
-    entry.delete(0, END)
+    operstr=''
+    entry.delete(0, tk.END)
 
 def btnClick(btntext):
     global numstr1
     global numstr2
     global operstr
 
-    print ("button text = " + btntext)
-    print ("operator = " + operstr)
-    print ("numstr1 = " + numstr1)
-    print ("numstr2 = " + numstr2)
     if btntext in numsArr:
         if operstr == "":
             numstr1 += btntext
+            entry.insert(tk.END, btntext)
         else:
             numstr2 += btntext
-    elif btntext in operArr and numstr1 != "":
+            entry.insert(tk.END, btntext)
+    elif btntext in operArr and numstr1 != "" and btntext != "C":
         if operstr == "":
             operstr = btntext
-        elif operstr == "C":
-            clear()
+            entry.insert(tk.END, btntext)
         else:
             if "." in numstr1 or "." in numstr2:
                 num1 = float(numstr1)
@@ -87,16 +84,23 @@ def btnClick(btntext):
                 num1 = int(numstr1)
                 num2 = int(numstr2)
                 print("the number was an integer")
-            entry.insert(0, btnsDict[operstr](num1, num2))
+            entry.delete(0, tk.END)
+            if btnsDict[operstr] != sqr or btnsDict[operstr] != sqrRt:
+                entry.insert(0, btnsDict[operstr](num1, num2))
+            else:
+                entry.insert(0, btnsDict[operstr](num1))
 
-            # if operstr == "=":
-                #display results in entry or results
-                # numstr1 = str(results)
-                # clear operstr
-                # clear numstr2
-    elif btntext in operArr and numstr1 == "":
+    elif btntext == "C":
+        clear()
+    elif btntext in operArr and numstr1 == "" and btntext != "C":
         print("INVALID INPUT /n Please click a number first")
+        entry.delete(0, tk.END)
         entry.insert(0, "INVALID INPUT")
+
+    print ("button text = " + btntext)
+    print ("operator = " + operstr)
+    print ("numstr1 = " + numstr1)
+    print ("numstr2 = " + numstr2)
     
 
 
@@ -146,17 +150,12 @@ indx2 = 0
 while indx1 <= 4:
     for x in range(4):
         c = x
-        print(BtnsArr[indx2] + "button is being created")
+        print(BtnsArr[indx2] + "button is being created with text: " + BtnsTextArr[indx2] )
         BtnsArr[indx2] = tk.Button(window, text=BtnsTextArr[indx2], width=11, height=3, command=lambda btntext=BtnsTextArr[indx2]: btnClick(btntext)) .grid(row=r, column=c) # if you're going to use a loop to create buttons, you need to have a lambda command and if your command function is going to have parameters, you will need to define the values of the parameter (btntext = BtnTextArr[indx2]) in each loop otherwise the values will all be the same for each loop
         indx2 += 1
     r+=1
     indx1 += 1
 
-
-# RESULTS
-
-results = "RESULTS: "
-resultsText = tk.Label(window, text=results, width=10, height=2) .grid(row=6, column=0, columnspan=3)
-
+# RUN THE WINDOW
 
 window.mainloop() # <-- tells the program to run/open the window
