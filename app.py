@@ -75,18 +75,18 @@ def btnClick(btntext):
         else:
             if "." in numstr1 or "." in numstr2:
                 num1 = float(numstr1)
-                if operstr != "sqr()" or operstr != "√":
+                if operstr != "sqr()" and operstr != "√":
                     print("my operator is not sqr() or √")
                     num2 = float(numstr2)
                 print("the number had a decimal in it")
             else:
                 num1 = int(numstr1)
-                if operstr != "sqr()" or operstr != "√":
+                if operstr != "sqr()" and operstr != "√":
                     print("my operator is not sqr() or √")
                     num2 = int(numstr2)
                 print("the number was an integer")
             entry.delete(0, tk.END)
-            if operstr != "sqr()" or operstr != "√":
+            if operstr != "sqr()" and operstr != "√":
                 entry.insert(0, btnsDict[operstr](num1, num2))
             else:
                 entry.insert(0, btnsDict[operstr](num1))
