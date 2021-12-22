@@ -33,19 +33,16 @@ def sqrRt(a):
     return math.sqrt(a)
 
 def exp(a,b):
-    c = a
-    for x in range(b-1):
-        c = c * a
-    print(c)
-    return c
+    print (a**b)
+    return a ** b
 
 # GIVING THE BUTTONS EVENT LISTENERS
 
 numstr1=''
 operstr=''
 numstr2=''
-numsArr=["7", "8", "9", "0", "4", "5", "6", "1", "2", "3"]
-operArr=["sqr()", "√", "+", "-", "x", "/", ".", "exp", "C", "="]
+numsArr=["7", "8", "9", "0", "4", "5", "6", "1", "2", "3", "."]
+operArr=["sqr()", "√", "+", "-", "x", "/", "exp", "C", "="]
 
 btnsDict={"sqr()": sqr, "√": sqrRt, "+": add, "-": sub, "x": mult, "/": div, "exp": exp}
 
@@ -78,17 +75,28 @@ def btnClick(btntext):
         else:
             if "." in numstr1 or "." in numstr2:
                 num1 = float(numstr1)
-                num2 = float(numstr2)
+                if operstr != "sqr()" or operstr != "√":
+                    print("my operator is not sqr() or √")
+                    num2 = float(numstr2)
                 print("the number had a decimal in it")
             else:
                 num1 = int(numstr1)
-                num2 = int(numstr2)
+                if operstr != "sqr()" or operstr != "√":
+                    print("my operator is not sqr() or √")
+                    num2 = int(numstr2)
                 print("the number was an integer")
             entry.delete(0, tk.END)
-            if btnsDict[operstr] != sqr or btnsDict[operstr] != sqrRt:
+            if operstr != "sqr()" or operstr != "√":
                 entry.insert(0, btnsDict[operstr](num1, num2))
             else:
                 entry.insert(0, btnsDict[operstr](num1))
+            numstr1 = entry.get()
+            if btntext != "=":
+                operstr = btntext
+                entry.insert(tk.END, btntext)
+            else:
+                operstr = ""
+            numstr2 = ""
 
     elif btntext == "C":
         clear()
