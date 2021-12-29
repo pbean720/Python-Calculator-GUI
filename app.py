@@ -6,7 +6,7 @@ from tkinter.constants import END
 ############## THE FUNCTIONALITY ###############
 ################################################
 
-# CALCULATE
+# CALCULATION FUNCTIONS
 
 def add(a,b):
     print(a + b)
@@ -150,7 +150,6 @@ entry.place(width=389, height=50, x=7, y=3)
 
 BtnsArr = ["clrBtn", "sqrBtn", "sqrRtBtn", "plusBtn", "SvnBtn", "EigBtn", "NineBtn", "minusBtn", "FourBtn", "FiveBtn", "SixBtn", "mulBtn", "oneBtn", "TwoBtn", "ThreeBtn", "divBtn", "decBtn", "zeroBtn", "expBtn", "equalBtn"]
 BtnsTextArr = ["C", "sqr()", "√", "+", "7", "8", "9", "-", "4", "5", "6", "x", "1", "2", "3", "/", ".", "0", "exp", "="]
-# change to a dictionary
 
 r = 1
 indx1 = 0
